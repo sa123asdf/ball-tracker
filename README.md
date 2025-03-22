@@ -4,6 +4,10 @@ This project combines Python and Arduino to track a tennis ball in real-time and
 
 ## 🎥 Demo:
 
+Check out the demo video here: [Watch the demo video](https://youtu.be/4kyPQEncLbc)
+
+Or click the image below to watch the demo:
+
 [![Watch the demo](https://img.youtube.com/vi/4kyPQEncLbc/maxresdefault.jpg)](https://youtu.be/4kyPQEncLbc)
 
 ---
