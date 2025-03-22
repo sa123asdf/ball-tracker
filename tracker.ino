@@ -1,46 +1,69 @@
-#include <Servo.h>
+#include <Servo.h>  // Include the Servo library to control servo motors
 
-Servo servoX;
+// Create Servo objects to control the X and Y axes
+Servo servoX;  
 Servo servoY;
 
-int posX = 90; // Servo başlangıç pozisyonu
-int posY = 90;
+// Define initial positions for the servo motors
+int posX = 90; // X-axis initial position (centered at 90 degrees)
+int posY = 90; // Y-axis initial position (centered at 90 degrees)
 
 void setup() {
-  servoX.attach(9);  // X ekseni için servo motorun bağlı olduğu pin
-  servoY.attach(10); // Y ekseni için servo motorun bağlı olduğu pin
-  Serial.begin(9600);
-  servoX.write(posX);
-  servoY.write(posY);
+  // Attach the servo motors to the respective pins
+  servoX.attach(9);  // Attach the servo motor controlling the X-axis to pin 9
+  servoY.attach(10); // Attach the servo motor controlling the Y-axis to pin 10
+  
+  Serial.begin(9600);  // Start serial communication at 9600 baud rate
+  
+  // Set initial positions for both servos to center them
+  servoX.write(posX);  
+  servoY.write(posY);  
 }
 
 void loop() {
+  // Check if there is data available to read from the serial port
   if (Serial.available() > 0) {
-    String data = Serial.readStringUntil('\n'); // Satır sonuna kadar gelen veriyi oku
-    int commaIndex = data.indexOf(','); // Virgülün indeksini bul
+    // Read the incoming data until a newline character is encountered
+    String data = Serial.readStringUntil('\n'); 
+    
+    // Find the index of the comma (separating X and Y values)
+    int commaIndex = data.indexOf(','); 
+    
+    // If a comma is found, proceed to extract X and Y coordinates
     if (commaIndex > 0) {
-      String xString = data.substring(0, commaIndex); // X değerini al
-      String yString = data.substring(commaIndex + 1); // Y değerini al
+      // Extract the X value (left part of the data string)
+      String xString = data.substring(0, commaIndex); 
+      
+      // Extract the Y value (right part of the data string)
+      String yString = data.substring(commaIndex + 1); 
+      
+      // Convert the extracted strings to integers
       int x = xString.toInt();
       int y = yString.toInt();
 
-      // X ekseni kontrolü (640 ortalanmış olarak varsayılıyor)
+      // Control the X-axis movement based on the received X value
+      // Assume 640 is the center point for X-axis (centered at 90 degrees)
       if (x < 580) {
-        posX = constrain(posX + 1, 0, 180); // Sol tarafa hareket ettir
+        // If X is smaller than 580, move the servo to the left
+        posX = constrain(posX + 1, 0, 180);  // Ensure posX stays within the range 0-180
       } else if (x > 700) {
-        posX = constrain(posX - 1, 0, 180); // Sağ tarafa hareket ettir
+        // If X is greater than 700, move the servo to the right
+        posX = constrain(posX - 1, 0, 180);  // Ensure posX stays within the range 0-180
       }
 
-      // Y ekseni kontrolü (360 ortalanmış olarak varsayılıyor)
+      // Control the Y-axis movement based on the received Y value
+      // Assume 360 is the center point for Y-axis (centered at 90 degrees)
       if (y > 420) {
-        posY = constrain(posY - 1, 0, 180); // Aşağıya hareket ettir
+        // If Y is greater than 420, move the servo downward
+        posY = constrain(posY - 1, 0, 180);  // Ensure posY stays within the range 0-180
       } else if (y < 300) {
-        posY = constrain(posY + 1, 0, 180); // Yukarıya hareket ettir
+        // If Y is less than 300, move the servo upward
+        posY = constrain(posY + 1, 0, 180);  // Ensure posY stays within the range 0-180
       }
 
-      // Servo motorları yeni pozisyonlara ayarla
-      servoX.write(posX);
-      servoY.write(posY);
+      // Apply the updated positions to the servos
+      servoX.write(posX);  // Set the X servo to the new position
+      servoY.write(posY);  // Set the Y servo to the new position
     }
   }
 }
