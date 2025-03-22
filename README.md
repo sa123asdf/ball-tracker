@@ -2,8 +2,9 @@
 
 This project combines Python and Arduino to track a tennis ball in real-time and control a mechanical platform using two servo motors. The Python program detects the tennis ball in a video stream, sends its coordinates to the Arduino, which then adjusts the position of the servos to follow the ball's movement.
 
-## 🎥 Demo Video:
-[Watch the demo on YouTube](https://youtu.be/4kyPQEncLbc?si=QymId3UWWP7ilqp2)
+## 🎥 Demo:
+
+[![Watch the demo](https://img.youtube.com/vi/4kyPQEncLbc/maxresdefault.jpg)](https://youtu.be/4kyPQEncLbc)
 
 ---
 
